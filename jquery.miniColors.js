@@ -140,8 +140,8 @@ if(jQuery) (function($) {
 					.append('<div class="miniColors-colors" style="background-color: #FFF;"><div class="miniColors-colorPicker"><div class="miniColors-colorPicker-inner"></div></div>')
 					.append('<div class="miniColors-hues"><div class="miniColors-huePicker"></div></div>')
 					.css({
-						top: input.is(':visible') ? input.offset().top + input.outerHeight() : input.data('trigger').offset().top + input.data('trigger').outerHeight(),
-						left: input.is(':visible') ? input.offset().left : input.data('trigger').offset().left,
+						top: input.is(':visible') ? input.position().top + input.outerHeight() : input.data('trigger').position().top + input.data('trigger').outerHeight(),
+						left: input.is(':visible') ? input.position().left : input.data('trigger').position().left,
 						display: 'none'
 					})
 					.addClass( input.attr('class') );
@@ -171,7 +171,7 @@ if(jQuery) (function($) {
 					.data('colorPicker', selector.find('.miniColors-colorPicker'))
 					.data('mousebutton', 0);
 					
-				$('BODY').append(selector);
+				input.parent().append(selector);
 				selector.fadeIn(100);
 				
 				// Prevent text selection in IE
