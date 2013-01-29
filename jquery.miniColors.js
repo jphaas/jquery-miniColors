@@ -134,15 +134,31 @@ if(jQuery) (function($) {
 				// Hide all other instances 
 				hide();				
 				
+				function get_coords(reference) {
+					var top;
+					var left;
+					var scrollTop;
+					var scrollLeft;
+					top = reference.offset().top + reference.outerHeight();
+					left = reference.offset().left;
+					//fixed positioning does not include scroll, whereas offset() does, so subtract out scroll
+					scrollTop = $(document).scrollTop();
+					scrollLeft = $(document).scrollLeft();
+					top = top - scrollTop;
+					left = left - scrollLeft;
+					return {top: top, left: left};
+				}
+				
 				// Generate the selector
 				var selector = $('<div class="miniColors-selector"></div>');
 				selector
 					.append('<div class="miniColors-colors" style="background-color: #FFF;"><div class="miniColors-colorPicker"><div class="miniColors-colorPicker-inner"></div></div>')
 					.append('<div class="miniColors-hues"><div class="miniColors-huePicker"></div></div>')
 					.css({
-						top: input.is(':visible') ? input.position().top + input.outerHeight() : input.data('trigger').position().top + input.data('trigger').outerHeight(),
-						left: input.is(':visible') ? input.position().left : input.data('trigger').position().left,
-						display: 'none'
+						top: input.is(':visible') ? get_coords(input).top : get_coords(input.data('trigger')).top,
+						left: input.is(':visible') ? get_coords(input).left : get_coords(input.data('trigger')).left,
+						display: 'none',
+						position: 'fixed'
 					})
 					.addClass( input.attr('class') );
 				
